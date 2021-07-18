@@ -21,7 +21,8 @@ body{
 
 .bookCard{
     border:2px solid black;
-    height:200px;
+    min-height:260px;
+    height:350px;
     width: 20%;
     font-family: 'Zen Loop', cursive;
     text-align: center;
@@ -39,8 +40,11 @@ body{
     font-size: 1.3rem;
 }
 .deleteButton{
+    width: 20%;
+    height: 10%;
+    align-self: flex-end;
     justify-self: flex-end;
-    flex:1;
+    flex-grow: 0;
 }
 .footer{
     width: 100vw;
@@ -67,7 +71,7 @@ body{
     transform: translate(-50%, -50%);
     z-index: 10;
     font-family: 'Otomanopee One', sans-serif;
-    background-color:rgba(8, 108, 238, 0.404);
+    background-color:rgba(8, 108, 238, 1);
     border-radius: 10px;
    
 
@@ -77,6 +81,7 @@ body{
     flex-direction: column;
     border: 2px solid black;
     border-radius: 10px;
+    padding:10px;
     
 }
 span{
@@ -87,6 +92,7 @@ input{
     margin:5px;
     border-radius: 5px;
     padding: 5px;
+    text-align: center;
 }
 .read{
     align-self: center;

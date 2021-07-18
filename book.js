@@ -29,21 +29,24 @@ function addBookToLibrary(title,author,pages,read){
     newBook.pages=pages;
     newBook.read=read;
     //Index of our book, to easier delete
-    newBook.numOfBook=numOfBook;
+    //newBook.numOfBook=numOfBook;
     numOfBook++;
 
     myLibrary.push(newBook);
-    localStorage.setItem('myLibrary')
+    localStorage.setItem('myLibrary',JSON.stringify(myLibrary));
     showBooks(newBook);
 
 }
 function deleteBookFromLibrary(numOfBook){
     myLibrary.splice(numOfBook, 1);
     console.log(numOfBook);
+    localStorage.setItem('myLibrary',JSON.stringify(myLibrary))
     renderWholeArray();
 }
 
 function showBooks(addedBook){
+        addedBook.numOfBook=numOfBook;
+        numOfBook++;
         let card=document.createElement('div');
         card.className="bookCard";
         let deleteButton=document.createElement('button');
@@ -67,6 +70,7 @@ function showBooks(addedBook){
         if(addedBook.read){
             checkbox.checked=true;
         }
+
         label.appendChild(checkbox);
         label.appendChild(checkboxSpan);
         listEl4.appendChild(label);
@@ -119,12 +123,15 @@ function addNewBookFromForm(e){
 }
 
 function renderWholeArray(){
+    numOfBook=0;
+    myLibrary=JSON.parse(localStorage.getItem('myLibrary'));
     //Running on startup, and when you delete a book
     bookContainer.innerHTML='';
     for(let i=0; i<myLibrary.length;i++){
         showBooks(myLibrary[i]);
     }
 }
+renderWholeArray();
 
 addButton.addEventListener("click",showInput);
 closeForm.addEventListener("click",closeInput);
