@@ -1,8 +1,15 @@
 const bookContainer=document.getElementById("book_container");
 const addButton=document.getElementById("addButton");
 const inputPanel=document.getElementById("inputPanel");
+const closeForm=document.getElementById("closeForm");
+
+
+
+const submitButton=document.getElementById("submitButton");
+
 
 let myLibrary = [];
+let numOfBook=0;
 
 
 function Book(title,author,pages,read){
@@ -11,7 +18,7 @@ function Book(title,author,pages,read){
     this.pages=pages;
     this.read=read;
     this.info=function(){
-        console.log(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read?"already read": "not read yet"} `)
+        return console.log(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read?"already read": "not read yet"} `)
     }
 }
 
@@ -21,13 +28,28 @@ function addBookToLibrary(title,author,pages,read){
     newBook.author=author;
     newBook.pages=pages;
     newBook.read=read;
+    //Index of our book, to easier delete
+    newBook.numOfBook=numOfBook;
+    numOfBook++;
+
     myLibrary.push(newBook);
+    localStorage.setItem('myLibrary')
     showBooks(newBook);
+
+}
+function deleteBookFromLibrary(numOfBook){
+    myLibrary.splice(numOfBook, 1);
+    console.log(numOfBook);
+    renderWholeArray();
 }
 
 function showBooks(addedBook){
         let card=document.createElement('div');
         card.className="bookCard";
+        let deleteButton=document.createElement('button');
+        deleteButton.className='deleteButton';
+        deleteButton.innerHTML='X';
+        deleteButton.addEventListener("click",function(){deleteBookFromLibrary(addedBook.numOfBook)});
         let list=document.createElement('ul');
         let listEl1=document.createElement('h1');
         listEl1.innerText=addedBook.title;
@@ -53,11 +75,13 @@ function showBooks(addedBook){
         cardBgColor=random_bg_color();
 
         card.style.background = bgColor;
+        card.appendChild(deleteButton);
         card.appendChild(list);
         list.appendChild(listEl1);
         list.appendChild(listEl2);
         list.appendChild(listEl3);
         list.appendChild(listEl4);
+        
         bookContainer.appendChild(card);
 }
 
@@ -73,4 +97,35 @@ function showInput(){
     inputPanel.hidden=false;
 
 }
+function closeInput(){
+    inputPanel.hidden=true;
+}
+function addNewBookFromForm(e){
+    //Don't refresh the page, getting the values
+    e.preventDefault();
+
+    let title=document.getElementById("title").value;
+    let author=document.getElementById("author").value;
+    let pages=document.getElementById("pages").value;
+    let read=document.getElementById("checkbox").checked;
+
+    addBookToLibrary(title,author,pages,read);
+    //nullify values, close inputForm
+    document.getElementById("title").value=null;
+    document.getElementById("author").value=null;
+    document.getElementById("pages").value=null;
+    document.getElementById("checkbox").checked=false;
+    closeInput();
+}
+
+function renderWholeArray(){
+    //Running on startup, and when you delete a book
+    bookContainer.innerHTML='';
+    for(let i=0; i<myLibrary.length;i++){
+        showBooks(myLibrary[i]);
+    }
+}
+
 addButton.addEventListener("click",showInput);
+closeForm.addEventListener("click",closeInput);
+submitButton.addEventListener("click",addNewBookFromForm);

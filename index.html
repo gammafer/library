@@ -18,21 +18,31 @@
             </button>
     </div>
     <div class="inputPanel" id="inputPanel" hidden>
-        <div class="formHeader"><span>Add a new book:</span>
-        <button class="closeForm">X</button>
+
+        <div class="formHeader">
+            <span>Add a new book:</span>
+            <button class="closeForm" id="closeForm">X</button>
         </div>
+
         <form action="" class="form" id="form">
+
             <span>Title:</span>
-            <input type="text" name="title" id="title">
+            <input type="text" name="title"  id="title">
+
             <span>Author:</span>
-            <input type="text" name="author" id="author">
+            <input type="text" name="author"  id="author">
+
             <span>Pages:</span>
-            <input type="number" name="pages" id="pages">
+            <input type="number" name="pages"  id="pages">
+
             <span>Have you read it?</span>
             <label class="switch  read">
                 <input type="checkbox" id="checkbox">
                 <span class="slider round"></span>
-              </label>
+            </label>
+
+            <input type="submit" value="Send" id="submitButton">
+
         </form>
 
     </div>

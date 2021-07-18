@@ -27,6 +27,7 @@ body{
     text-align: center;
     border-radius: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     overflow: hidden;
     margin:10px;
@@ -36,6 +37,10 @@ body{
     padding: 0;
     margin:2px;
     font-size: 1.3rem;
+}
+.deleteButton{
+    justify-self: flex-end;
+    flex:1;
 }
 .footer{
     width: 100vw;
